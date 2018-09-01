@@ -431,7 +431,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 2
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -1022,7 +1022,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   sugarPrefab: {fileID: 1492639415828076, guid: cf53a88b1220b5e48886a28dffee1660,
     type: 2}
-  lifePrefab: {fileID: 1652426837194970, guid: 0812218cbbad7964b97ab0f249ce6987, type: 2}
+  lifePrefab: {fileID: 1936215818278198, guid: 0812218cbbad7964b97ab0f249ce6987, type: 2}
   jumpForce: 400
   health: 5
   flashLength: 0.75

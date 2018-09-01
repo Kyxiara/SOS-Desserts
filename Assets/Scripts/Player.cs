@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            lifes[i] = Instantiate(lifePrefab, new Vector3(i * 40.0F - 375.0f, 115 + 3.5f, 0), Quaternion.identity);
+            lifes[i] = Instantiate(lifePrefab, new Vector3(i * 40.0F - 370.0f, 110 + 3.5f, 0), Quaternion.identity);
             lifes[i].transform.SetParent(GameObject.FindGameObjectWithTag("FixedScreen").transform, false);
         }
     }
