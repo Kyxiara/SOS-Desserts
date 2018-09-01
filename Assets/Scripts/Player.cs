@@ -82,10 +82,11 @@ public class Player : MonoBehaviour
 
     private void CreateLifes()
     {
+        GameObject lifePanel = GameObject.Find("LifePanel");
         for (int i = 0; i < 5; i++)
         {
-            lifes[i] = Instantiate(lifePrefab, new Vector3(i * 40.0F - 370.0f, 110 + 3.5f, 0), Quaternion.identity);
-            lifes[i].transform.SetParent(GameObject.FindGameObjectWithTag("FixedScreen").transform, false);
+            lifes[i] = Instantiate(lifePrefab, new Vector3(50f + i * 40.0f, 0f, 0), Quaternion.identity);
+            lifes[i].transform.SetParent(lifePanel.transform, false);
         }
     }
 
