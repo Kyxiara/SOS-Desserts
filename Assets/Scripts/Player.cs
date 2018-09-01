@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -50,14 +51,14 @@ public class Player : MonoBehaviour
 
     private GameObject[] lifes = new GameObject[5];
 
-	void Start ()
+    void Start ()
     {
         facingRight = true;
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
-        createLifes();
-	}
+        CreateLifes();
+    }
 
     private void Update()
     {
@@ -79,11 +80,12 @@ public class Player : MonoBehaviour
 
     }
 
-    private void createLifes()
+    private void CreateLifes()
     {
         for (int i = 0; i < 5; i++)
         {
-            lifes[i] = Instantiate(lifePrefab, new Vector3(i * 1.0F - 11.0f, 3.5f, 0), Quaternion.identity);
+            lifes[i] = Instantiate(lifePrefab, new Vector3(i * 40.0F - 375.0f, 115 + 3.5f, 0), Quaternion.identity);
+            lifes[i].transform.SetParent(GameObject.FindGameObjectWithTag("FixedScreen").transform, false);
         }
     }
 
@@ -138,7 +140,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -207,8 +209,8 @@ public class Player : MonoBehaviour
 
     public IEnumerator TakeDamage()
     {
-        Destroy(lifes[health-1]);
         health -= 1;
+        Destroy(lifes[health]);
         if (!IsDead())
         {
             flashActive = true;
