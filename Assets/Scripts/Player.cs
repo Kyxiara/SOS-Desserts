@@ -92,21 +92,24 @@ public class Player : MonoBehaviour
 
     private void SystemFlash()
     {
+        Color tmp = playerSprite.color;
         if (flashCounter > flashLength * .80f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            tmp.a = 0f;
         else if (flashCounter > flashLength * .60f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            tmp.a = 1f;
         else if (flashCounter > flashLength * .40f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            tmp.a = 0f;
         else if (flashCounter > flashLength * .20f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            tmp.a = 1f;
         else if (flashCounter > 0f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            tmp.a = 0f;
         else
         {
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            tmp.a = 1f;
             flashActive = false;
         }
+
+        playerSprite.color = tmp;
         flashCounter -= Time.deltaTime;
     }
 
