@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Carot")
+        if (other.CompareTag("Carot") || other.CompareTag("Monster"))
         {
             StartCoroutine(TakeDamage());
         }
