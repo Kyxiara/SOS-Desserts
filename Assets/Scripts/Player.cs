@@ -82,30 +82,34 @@ public class Player : MonoBehaviour
 
     private void CreateLifes()
     {
+        GameObject lifePanel = GameObject.Find("LifePanel");
         for (int i = 0; i < 5; i++)
         {
-            lifes[i] = Instantiate(lifePrefab, new Vector3(i * 40.0F - 370.0f, 110 + 3.5f, 0), Quaternion.identity);
-            lifes[i].transform.SetParent(GameObject.FindGameObjectWithTag("FixedScreen").transform, false);
+            lifes[i] = Instantiate(lifePrefab, new Vector3(50f + i * 40.0f, 0f, 0), Quaternion.identity);
+            lifes[i].transform.SetParent(lifePanel.transform, false);
         }
     }
 
     private void SystemFlash()
     {
+        Color tmp = playerSprite.color;
         if (flashCounter > flashLength * .80f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            tmp.a = 0f;
         else if (flashCounter > flashLength * .60f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            tmp.a = 1f;
         else if (flashCounter > flashLength * .40f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            tmp.a = 0f;
         else if (flashCounter > flashLength * .20f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            tmp.a = 1f;
         else if (flashCounter > 0f)
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 0f);
+            tmp.a = 0f;
         else
         {
-            playerSprite.color = new Color(playerSprite.color.r, playerSprite.color.g, playerSprite.color.b, 1f);
+            tmp.a = 1f;
             flashActive = false;
         }
+
+        playerSprite.color = tmp;
         flashCounter -= Time.deltaTime;
     }
 
