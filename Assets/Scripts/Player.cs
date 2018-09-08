@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
         {
             lifes[i] = Instantiate(lifePrefab, new Vector3(30f + i * 40.0f, 8f, 0), Quaternion.identity);
             lifes[i].transform.SetParent(lifePanel.transform, false);
+            lifes[i].gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
         }
     }
 
@@ -115,6 +116,10 @@ public class Player : MonoBehaviour
 
     private void HandleMovement(float horizontal)
     {
+        if (transform.position.x <= -11)
+        {
+            transform.position = new Vector2(-11, transform.position.y);
+        }
         if (myRigidbody.velocity.y < 0)
         {
             myAnimator.SetBool("land", true);
@@ -177,6 +182,7 @@ public class Player : MonoBehaviour
                     {
                         myAnimator.ResetTrigger("jump");
                         myAnimator.SetBool("land", false);
+                        if (transform.position.y > 0) Debug.Log("aie");
                         return true;
                     }
                 }
