@@ -15,15 +15,6 @@ public class Player : MonoBehaviour
 
     private bool facingRight;
 
-    [SerializeField]
-    private Transform[] groundPoints;
-
-    [SerializeField]
-    private float groundRadius;
-
-    [SerializeField]
-    private LayerMask whatIsGround;
-
     private bool isGrounded;
 
     private bool jump;
@@ -68,7 +59,12 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         float horizontal = Input.GetAxis("Horizontal");
-        isGrounded = IsGrounded();
+        isGrounded = myRigidbody.velocity.y == 0;
+        if (isGrounded)
+        {
+            myAnimator.ResetTrigger("jump");
+            myAnimator.SetBool("land", false);
+        }
         if (!IsDead())
         {
             HandleMovement(horizontal);
@@ -116,10 +112,6 @@ public class Player : MonoBehaviour
 
     private void HandleMovement(float horizontal)
     {
-        if (transform.position.x <= -11)
-        {
-            transform.position = new Vector2(-11, transform.position.y);
-        }
         if (myRigidbody.velocity.y < 0)
         {
             myAnimator.SetBool("land", true);
@@ -167,28 +159,6 @@ public class Player : MonoBehaviour
     private void ResetValues()
     {
         jump = false;
-    }
-
-    private bool IsGrounded()
-    {
-        if (myRigidbody.velocity.y <= 0)
-        {
-            foreach (Transform point in groundPoints)
-            {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
-                for (int i = 0; i < colliders.Length; i++)
-                {
-                    if (colliders[i].gameObject != gameObject)
-                    {
-                        myAnimator.ResetTrigger("jump");
-                        myAnimator.SetBool("land", false);
-                        if (transform.position.y > 0) Debug.Log("aie");
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     private void HandleLayers()
