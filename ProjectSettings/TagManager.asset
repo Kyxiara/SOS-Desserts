@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Carot
   - Monster
+  - Sugar
   layers:
   - Default
   - TransparentFX

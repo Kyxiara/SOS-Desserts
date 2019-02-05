@@ -21,14 +21,27 @@ public class Leek : MonoBehaviour {
 	private SpriteRenderer mySpriteRenderer;
 	private GameObject player;
 
-	// Use this for initialization
-	void Start ()
+    [SerializeField]
+    private int health;
+
+    private bool flashActive;
+
+    [SerializeField]
+    private float flashLength;
+
+    private float flashCounter;
+
+    private GameObject[] lifes = new GameObject[5];
+
+
+    // Use this for initialization
+    void Start ()
 	{
 		myRigidbody = GetComponent<Rigidbody2D>();
 		mySpriteRenderer = GetComponent<SpriteRenderer>();
 		player = GameObject.Find("Player");
 
-		StartCoroutine(Idle());
+        StartCoroutine(Idle());
 	}
 
 	private void Update()
@@ -41,7 +54,8 @@ public class Leek : MonoBehaviour {
 	{
 		if (chasing)
 			horizontalMouvement = HandleMouvement();
-	}
+        if (flashActive) SystemFlash();
+    }
 
 	private float HandleMouvement()
 	{
@@ -56,13 +70,10 @@ public class Leek : MonoBehaviour {
 	private void HandleAnimation(float horizontal)
 	{
 		mySpriteRenderer.flipX = horizontal > 0f;
-		mySpriteRenderer.color = chaseColor.Evaluate(Time.time * ChaseColorSpeed % 1f);
+		if (!flashActive) mySpriteRenderer.color = chaseColor.Evaluate(Time.time * ChaseColorSpeed % 1f);
 	}
 
-	/// <summary>
 	/// Stay Idle until the player is closer than perceptionRange then transition to the chasing state
-	/// </summary>
-	/// <returns></returns>
 	private IEnumerator Idle()
 	{
 		while (Vector2.Distance(player.transform.position, transform.position) > perceptionRange)
@@ -81,5 +92,57 @@ public class Leek : MonoBehaviour {
 	{
 		if (other.gameObject == player)
 			StartCoroutine(player.GetComponent<Player>().TakeDamage());
-	}
+    }
+
+    public IEnumerator TakeDamage()
+    {
+        health -= 1;
+        Destroy(lifes[health]);
+        if (!IsDead())
+        {
+            flashActive = true;
+            flashCounter = flashLength;
+        }
+        else
+        {
+            Destroy(gameObject);
+            yield return null;
+        }
+    }
+
+    public bool IsDead()
+    {
+        return health <= 0;
+    }
+
+    private void SystemFlash()
+    {
+        Color tmp = mySpriteRenderer.color;
+        if (flashCounter > flashLength * .80f)
+            tmp.a = 0f;
+        else if (flashCounter > flashLength * .60f)
+            tmp.a = 1f;
+        else if (flashCounter > flashLength * .40f)
+            tmp.a = 0f;
+        else if (flashCounter > flashLength * .20f)
+            tmp.a = 1f;
+        else if (flashCounter > 0f)
+            tmp.a = 0f;
+        else
+        {
+            tmp.a = 1f;
+            flashActive = false;
+        }
+
+        mySpriteRenderer.color = tmp;
+        flashCounter -= Time.deltaTime;
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Sugar"))
+        {
+            StartCoroutine(TakeDamage());
+        }
+    }
 }

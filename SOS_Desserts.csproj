@@ -222,6 +222,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\CollisionTrigger.cs" />
+    <Compile Include="Assets\Scripts\Monsters\Leek.cs" />
+    <Compile Include="Assets\Scripts\Monsters\Pea.cs" />
+    <Compile Include="Assets\Scripts\Monsters\Peas.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Sugar.cs" />
   </ItemGroup>
