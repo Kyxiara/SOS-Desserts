@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212354177711523854}
   - component: {fileID: 95907624451241300}
   - component: {fileID: 114394126718636574}
+  - component: {fileID: 61794403485720920}
+  - component: {fileID: 61536282879821932}
   m_Layer: 0
   m_Name: Peas
   m_TagString: Monster
@@ -42,6 +44,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61536282879821932
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154914485998836}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.58, y: 2.2}
+    newSize: {x: 1.58, y: 2.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.58, y: 2.2}
+  m_EdgeRadius: 0
+--- !u!61 &61794403485720920
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154914485998836}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.58, y: 2.2}
+    newSize: {x: 1.58, y: 2.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.58, y: 2.2}
+  m_EdgeRadius: 0
 --- !u!95 &95907624451241300
 Animator:
   serializedVersion: 3
@@ -70,6 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29e41231ba75344eb4044dbd45191c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  peaPrefab: {fileID: 1652033218321050, guid: 8487cdd4c61d3cb469b391ff2a1474fb, type: 2}
+  peasCollider: {fileID: 61794403485720920}
+  peasTrigger: {fileID: 61536282879821932}
+  health: 6
+  flashLength: 0.75
 --- !u!212 &212354177711523854
 SpriteRenderer:
   m_ObjectHideFlags: 1

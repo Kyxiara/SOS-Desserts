@@ -31,8 +31,11 @@ public class Leek : MonoBehaviour {
 
     private float flashCounter;
 
-    private GameObject[] lifes = new GameObject[5];
+    [SerializeField]
+    private BoxCollider2D leekCollider;
 
+    [SerializeField]
+    private BoxCollider2D leekTrigger;
 
     // Use this for initialization
     void Start ()
@@ -40,6 +43,7 @@ public class Leek : MonoBehaviour {
 		myRigidbody = GetComponent<Rigidbody2D>();
 		mySpriteRenderer = GetComponent<SpriteRenderer>();
 		player = GameObject.Find("Player");
+        Physics2D.IgnoreCollision(leekCollider, leekTrigger, true);
 
         StartCoroutine(Idle());
 	}
@@ -88,16 +92,9 @@ public class Leek : MonoBehaviour {
 		chasing = true;
 	}
 
-	private void OnCollisionEnter2D(Collision2D other)
-	{
-		if (other.gameObject == player)
-			StartCoroutine(player.GetComponent<Player>().TakeDamage());
-    }
-
     public IEnumerator TakeDamage()
     {
         health -= 1;
-        Destroy(lifes[health]);
         if (!IsDead())
         {
             flashActive = true;
@@ -138,11 +135,23 @@ public class Leek : MonoBehaviour {
         flashCounter -= Time.deltaTime;
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Sugar"))
         {
             StartCoroutine(TakeDamage());
+        }
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Monster")
+        {
+            Physics2D.IgnoreCollision(leekCollider, other.gameObject.GetComponent<BoxCollider2D>(), true);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Monster")
+        {
+            Physics2D.IgnoreCollision(leekCollider, other.gameObject.GetComponent<BoxCollider2D>(), false);
         }
     }
 }

@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114047648822692004}
   - component: {fileID: 50436891905907414}
   - component: {fileID: 61059770602801768}
+  - component: {fileID: 61404288024182322}
   - component: {fileID: 95823203168553186}
   m_Layer: 0
   m_Name: Pea
@@ -89,6 +90,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
+--- !u!61 &61404288024182322
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1652033218321050}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.4, y: 0.4}
+    newSize: {x: 0.4, y: 0.4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.4}
+  m_EdgeRadius: 0
 --- !u!95 &95823203168553186
 Animator:
   serializedVersion: 3
@@ -117,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef53539435583c448a723af92080ebc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  peaCollider: {fileID: 61059770602801768}
+  peaTrigger: {fileID: 61404288024182322}
 --- !u!212 &212549926414607060
 SpriteRenderer:
   m_ObjectHideFlags: 1
