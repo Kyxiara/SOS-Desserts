@@ -40,7 +40,7 @@ public class Peas : MonoBehaviour {
     IEnumerator instanciatePea()
     {
         Vector2[] direction = { Vector2.left, Vector2.right };
-        GameObject pea = Instantiate(peaPrefab, new Vector3(transform.position.x + 0.558f, transform.position.y - 0.611f,transform.position.z), Quaternion.identity);
+        GameObject pea = Instantiate(peaPrefab, new Vector3(transform.position.x, transform.position.y - 0.611f,transform.position.z), Quaternion.identity);
         pea.GetComponent<Pea>().Initialize(direction[Random.Range(0, 2)]);
         yield return new WaitForSeconds(Random.Range(1f, 3f));
         StartCoroutine(instanciatePea());

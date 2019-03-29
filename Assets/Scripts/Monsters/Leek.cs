@@ -75,7 +75,7 @@ public class Leek : MonoBehaviour {
 	{
 		mySpriteRenderer.flipX = horizontal > 0f;
 		if (!flashActive) mySpriteRenderer.color = chaseColor.Evaluate(Time.time * ChaseColorSpeed % 1f);
-	}
+    }
 
 	/// Stay Idle until the player is closer than perceptionRange then transition to the chasing state
 	private IEnumerator Idle()
@@ -84,13 +84,26 @@ public class Leek : MonoBehaviour {
 		{
 			if (Random.Range(0f, 1f) > 0.7f)
 			{
-				mySpriteRenderer.flipX = !mySpriteRenderer.flipX; 
-				myRigidbody.AddForce(new Vector2(0f, 150f));
-			}
+				mySpriteRenderer.flipX = !mySpriteRenderer.flipX;
+                myRigidbody.AddForce(new Vector2(0f, 150f));
+            }
 			yield return new WaitForSeconds(1f);
 		}
 		chasing = true;
-	}
+        StartCoroutine(JumpRandom());
+    }
+
+    private IEnumerator JumpRandom()
+    {
+        while (!IsDead())
+        {
+            if (Random.Range(0f, 1f) > 0.7f)
+            {
+                myRigidbody.AddForce(new Vector2(0f, 150f));    
+            }
+            yield return new WaitForSeconds(1f);
+        } 
+    }
 
     public IEnumerator TakeDamage()
     {
