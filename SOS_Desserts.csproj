@@ -228,6 +228,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Sugar.cs" />
     <Compile Include="Assets\Scripts\Traps\Cherry.cs" />
+    <Compile Include="Assets\Scripts\Traps\Olive.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
