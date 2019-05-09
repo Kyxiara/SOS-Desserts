@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4344050450701550}
   - component: {fileID: 198791823504307442}
   - component: {fileID: 199017327467830378}
+  - component: {fileID: 114927328893668462}
   m_Layer: 0
   m_Name: ExplosionOlive
   m_TagString: Untagged
@@ -41,6 +42,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114927328893668462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404681256839616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c8fb3112be8d74eb7657fac2775b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198791823504307442
 ParticleSystem:
   m_ObjectHideFlags: 1
