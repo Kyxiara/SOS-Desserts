@@ -48,16 +48,13 @@ public class Leek : MonoBehaviour {
         StartCoroutine(Idle());
 	}
 
-	private void Update()
-	{
-		if(chasing)
-			HandleAnimation(horizontalMouvement);
-	}
-
 	void FixedUpdate()
 	{
 		if (chasing)
-			horizontalMouvement = HandleMouvement();
+        {
+            HandleAnimation(horizontalMouvement);
+            horizontalMouvement = HandleMouvement();
+        }
         if (flashActive) SystemFlash();
     }
 
@@ -97,11 +94,16 @@ public class Leek : MonoBehaviour {
     {
         while (!IsDead())
         {
-            if (Random.Range(0f, 1f) > 0.7f)
+            if (chasing)
             {
-                myRigidbody.AddForce(new Vector2(0f, 150f));    
+                myRigidbody.AddForce(new Vector2(0f, 150f));
+                yield return new WaitForSeconds(0.6f);
             }
-            yield return new WaitForSeconds(1f);
+            else if (Random.Range(0f, 1f) > 0.7f)
+            {
+                myRigidbody.AddForce(new Vector2(0f, 150f));
+                yield return new WaitForSeconds(1f);
+            }
         } 
     }
 
@@ -150,7 +152,7 @@ public class Leek : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Sugar"))
+        if (other.CompareTag("Sugar") && !flashActive)
         {
             StartCoroutine(TakeDamage());
         }

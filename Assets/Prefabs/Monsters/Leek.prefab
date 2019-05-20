@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eead4fa9da9ec141be9b0dfe77c8d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 1.5
   perceptionRange: 5
   chaseColor:
     serializedVersion: 2
@@ -156,7 +156,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  health: 6
+  health: 3
   flashLength: 0.75
   leekCollider: {fileID: 61243517971678020}
   leekTrigger: {fileID: 61253557124445640}

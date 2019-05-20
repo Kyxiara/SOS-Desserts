@@ -29,4 +29,12 @@ public class Sugar : MonoBehaviour {
     {
         this.direction = direction;
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Monster"))
+        {
+            Destroy(gameObject);
+        }    
+    }
 }

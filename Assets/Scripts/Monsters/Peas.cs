@@ -48,7 +48,7 @@ public class Peas : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Sugar"))
+        if (other.CompareTag("Sugar") && !flashActive)
         {
             StartCoroutine(TakeDamage());
         }
