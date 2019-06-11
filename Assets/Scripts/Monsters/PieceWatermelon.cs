@@ -2,19 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Marrow : MonoBehaviour {
+public class PieceWatermelon : MonoBehaviour {
 
     [SerializeField]
     private float speed;
-
-    [SerializeField]
-    private float perceptionRange;
-
-    private bool chasing = false; 
-
-    [SerializeField]
-    private Gradient chaseColor;
-    private const float ChaseColorSpeed = 0.5f;
 
     private float horizontalMouvement;
 
@@ -33,29 +24,46 @@ public class Marrow : MonoBehaviour {
     private float flashCounter;
 
     [SerializeField]
-    private BoxCollider2D marrowCollider;
+    private BoxCollider2D pieceWatermelonCollider;
 
     [SerializeField]
-    private BoxCollider2D marrowTrigger;
+    private GameObject watermelon;
 
-    // Use this for initialization
+    [SerializeField]
+    private double distanceMinBegin;
+
+    private double distanceInitial;
+
+    private bool chasing;
+
     void Start () {
         myRigidbody = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
-        player = GameObject.Find("Player");
-        Physics2D.IgnoreCollision(marrowCollider, marrowTrigger, true);
-
-        StartCoroutine(Idle());
+        player = GameObject.Find("Player");      
+        distanceInitial = mySpriteRenderer.transform.position.x;
+        chasing = false;
     }
-
-    void FixedUpdate()
-    {
-        if (chasing)
+	
+	void FixedUpdate () {
+        if (distanceInitial - mySpriteRenderer.transform.position.x <= distanceMinBegin && !chasing)
+            myRigidbody.velocity = new Vector2(-1 * speed, myRigidbody.velocity.y);
+        else if (!chasing)
         {
-            HandleAnimation(horizontalMouvement);
+            chasing = true;
+            mySpriteRenderer.sortingOrder = 1;
+        }
+        if (chasing)
+        {            
             horizontalMouvement = HandleMouvement();
+            HandleAnimation(horizontalMouvement);
         }
         if (flashActive) SystemFlash();
+    }
+
+    public void Initialize(Vector3 pos)
+    {
+        Physics2D.IgnoreCollision(pieceWatermelonCollider, watermelon.GetComponent<BoxCollider2D>(), true);
+        transform.position = new Vector3(pos.x + 12.7f, pos.y - 0.3f, 0);
     }
 
     private float HandleMouvement()
@@ -71,40 +79,6 @@ public class Marrow : MonoBehaviour {
     private void HandleAnimation(float horizontal)
     {
         mySpriteRenderer.flipX = horizontal > 0f;
-        if (!flashActive) mySpriteRenderer.color = chaseColor.Evaluate(Time.time * ChaseColorSpeed % 1f);
-    }
-
-    /// Stay Idle until the player is closer than perceptionRange then transition to the chasing state
-    private IEnumerator Idle()
-    {
-        while (Vector2.Distance(player.transform.position, transform.position) > perceptionRange)
-        {
-            if (Random.Range(0f, 1f) > 0.7f)
-            {
-                mySpriteRenderer.flipX = !mySpriteRenderer.flipX;
-                myRigidbody.AddForce(new Vector2(0f, 150f));
-            }
-            yield return new WaitForSeconds(1f);
-        }
-        chasing = true;
-        StartCoroutine(JumpRandom());
-    }
-
-    private IEnumerator JumpRandom()
-    {
-        while (!IsDead())
-        {
-            if (chasing)
-            {
-                myRigidbody.AddForce(new Vector2(0f, 150f));
-                yield return new WaitForSeconds(0.6f);
-            }
-            else if (Random.Range(0f, 1f) > 0.7f)
-            {
-                myRigidbody.AddForce(new Vector2(0f, 150f));
-                yield return new WaitForSeconds(1f);
-            }
-        }
     }
 
     public IEnumerator TakeDamage()
@@ -151,14 +125,14 @@ public class Marrow : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D other)
-    {
+    {    
         if (other.CompareTag("Sugar") && !flashActive)
         {
             StartCoroutine(TakeDamage());
         }
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "Monster")
         {
-            Physics2D.IgnoreCollision(marrowCollider, other.gameObject.GetComponent<BoxCollider2D>(), true);
+            Physics2D.IgnoreCollision(pieceWatermelonCollider, other.gameObject.GetComponent<BoxCollider2D>(), true);
         }
     }
 
@@ -166,7 +140,12 @@ public class Marrow : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "Monster")
         {
-            Physics2D.IgnoreCollision(marrowCollider, other.gameObject.GetComponent<BoxCollider2D>(), false);
+            Physics2D.IgnoreCollision(pieceWatermelonCollider, other.gameObject.GetComponent<BoxCollider2D>(), false);
         }
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 }
